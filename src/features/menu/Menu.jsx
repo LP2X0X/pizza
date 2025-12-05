@@ -3,10 +3,11 @@ import MenuItem from "./MenuItem";
 
 function Menu() {
   const menu = useLoaderData();
+
   return (
     <div>
       {menu.map((item) => (
-        <MenuItem pizza={item} />
+        <MenuItem pizza={item} key={item.id} />
       ))}
     </div>
   );

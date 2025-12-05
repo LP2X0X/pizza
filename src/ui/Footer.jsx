@@ -1,8 +1,9 @@
+import CartOverview from "../features/cart/CartOverview";
+
 function Footer() {
   return (
     <footer>
-      <p>x Pizzas $x</p>
-      <button>Open Cart</button>
+      <CartOverview />
     </footer>
   );
 }

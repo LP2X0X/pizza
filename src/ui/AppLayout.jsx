@@ -8,7 +8,7 @@ import styles from "./AppLayout.module.css";
 function AppLayout() {
   const navigation = useNavigation();
 
-  const isLoading = navigation.state === "idle";
+  const isLoading = navigation.state === "loading";
 
   return (
     <div className={styles.appLayout}>
