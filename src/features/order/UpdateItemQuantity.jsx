@@ -1,14 +1,20 @@
-import { useDispatch } from "react-redux";
-import { decreaseItemQuantity, increateItemQuantity } from "../cart/cartSlice";
+import { useDispatch } from 'react-redux';
+import { decreaseItemQuantity, increateItemQuantity } from '../cart/cartSlice';
+import styles from './UpdateItemQuantity.module.css';
+import Button from '../../ui/Button';
 
 function UpdateItemQuantity({ id, quantity }) {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <button onClick={() => dispatch(increateItemQuantity(id))}>+</button>
+    <div className={styles.updateQuantityButtonContainer}>
+      <Button onClick={() => dispatch(increateItemQuantity(id))} type="small">
+        +
+      </Button>
       <p>{quantity}</p>
-      <button onClick={() => dispatch(decreaseItemQuantity(id))}>-</button>
+      <Button onClick={() => dispatch(decreaseItemQuantity(id))} type="small">
+        -
+      </Button>
     </div>
   );
 }

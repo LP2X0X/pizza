@@ -1,21 +1,25 @@
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router";
-import { getTotalCartPrice, getTotalQuantity } from "./cartSlice";
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router';
+import { getTotalCartPrice, getTotalQuantity } from './cartSlice';
+import styles from './CartOverview.module.css';
+import LinkButton from '../../ui/LinkButton';
 
 function CartOverview() {
   const quantity = useSelector(getTotalQuantity);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const location = useLocation();
 
-  const isAtCartLocation = location.pathname.includes("cart");
+  const isAtCartLocation = location.pathname.includes('cart');
 
   return (
-    <div>
-      <p>
-        <span>{`${quantity} ${quantity > 1 ? "Pizzas" : "Pizza"}`}</span>
+    <div className={styles.cartOverview}>
+      <p className={styles.cartOverviewInfo}>
+        <span>{`${quantity} ${quantity > 1 ? 'Pizzas' : 'Pizza'}`}</span>
         <span>{`$${totalCartPrice}`}</span>
       </p>
-      {!isAtCartLocation && <Link to="/cart">Open Cart</Link>}
+      {!isAtCartLocation && (
+        <LinkButton to="/cart">Open Cart &rarr;</LinkButton>
+      )}
     </div>
   );
 }

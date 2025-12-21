@@ -1,0 +1,15 @@
+.linkButton {
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+.back {
+  color: var(--color-blue-500);
+  text-transform: capitalize;
+  font-size: var(--font-size-xs);
+}
+
+.back:hover {
+  color: var(--color-blue-600);
+}

@@ -3,6 +3,7 @@ import CountDownTimer from './CountDownTimer';
 import OrderItem from './OrderItem';
 import { useEffect, useState } from 'react';
 import UpdateOrderPriority from './UpdateOrderPriority';
+import styles from './Order.module.css';
 
 const API_URL = 'https://react-fast-pizza-api.jonas.io/api/order';
 
@@ -39,20 +40,22 @@ function Order() {
   } = loaderData.data;
 
   return (
-    <article>
-      <h2>Order #{id} status</h2>
+    <article className={styles.order}>
+      <header className={styles.orderHeader}>
+        <h2 className={styles.orderId}>Order #{id} status</h2>
 
-      <div>
-        {priority && <p>priority</p>}
-        <p>{status} order</p>
-      </div>
+        <div className={styles.orderSideInfo}>
+          {priority && <p className={styles.priorityInfo}>priority</p>}
+          <p className={styles.orderStatusInfo}>{status} order</p>
+        </div>
+      </header>
 
       <CountDownTimer
         estimatedDelivery={estimatedDelivery}
         setHasOrderArrived={setHasOrderArrived}
       />
 
-      <ul>
+      <ul className={styles.orderItemContainer}>
         {cart.map((item) => (
           <OrderItem
             item={item}
@@ -66,11 +69,19 @@ function Order() {
         ))}
       </ul>
 
-      <div>
-        <p>Price of pizzas: ${orderPrice}</p>
-        {priorityPrice > 0 && <p>Priority price: ${priorityPrice}</p>}
-        <p>To pay on delivery: ${orderPrice + priorityPrice}</p>
-      </div>
+      <section className={styles.prices}>
+        <p className={styles.individualPrice}>
+          Price of pizzas: ${orderPrice.toFixed(2)}
+        </p>
+        {priorityPrice > 0 && (
+          <p className={styles.individualPrice}>
+            Priority price: ${priorityPrice.toFixed(2)}
+          </p>
+        )}
+        <p className={styles.totalPrice}>
+          To pay on delivery: ${(orderPrice + priorityPrice).toFixed(2)}
+        </p>
+      </section>
 
       {!priority && !hasOrderArrived && <UpdateOrderPriority />}
     </article>
@@ -83,7 +94,7 @@ export async function loader({ params }) {
   const res = await fetch(`${API_URL}/${params.id}`);
 
   if (!res.ok) {
-    throw new Error('There is something wrong when getting order detail...');
+    throw new Error(`Couldn't find order #${params.id}`);
   }
 
   const data = await res.json();

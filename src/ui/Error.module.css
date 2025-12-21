@@ -1,0 +1,14 @@
+.error {
+  max-width: calc(48 * 16px);
+  padding: 1.5rem 0.5rem;
+  color: var(--color-gray-700);
+  margin: 0 auto;
+}
+
+.errorHeader {
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  margin-bottom: 1rem;
+}

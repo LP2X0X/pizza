@@ -1,0 +1,11 @@
+.username {
+  text-transform: uppercase;
+  font-weight: 600;
+  display: none;
+}
+
+@media (width >= 40em) {
+  .username {
+    display: inline;
+  }
+}

@@ -1,0 +1,25 @@
+.orderItem:first-child {
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.orderItem {
+  padding: 0.5rem 0;
+}
+
+.orderItemQuantity,
+.orderItemPrice {
+  font-weight: 700;
+}
+
+.orderItemNameAndPrice {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.orderItemIngredients {
+  text-transform: capitalize;
+  font-style: italic;
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xs);
+}

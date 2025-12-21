@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from './CountDownTimer.module.css';
 
 function formatDateAndTime(dateAndTime) {
   const data = new Date(dateAndTime);
@@ -41,14 +42,14 @@ function CountDownTimer({ estimatedDelivery, setHasOrderArrived }) {
   );
 
   return (
-    <div>
-      <p>
+    <section className={styles.timer}>
+      <p className={styles.timeLeft}>
         {minuteLeft > 0
           ? `Only ${minuteLeft} minutes left 😊`
           : `Your order should have arrived`}
       </p>
-      <p>(Estimated delivery: {estimatedDate})</p>
-    </div>
+      <p className={styles.eta}>(Estimated delivery: {estimatedDate})</p>
+    </section>
   );
 }
 

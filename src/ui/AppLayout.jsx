@@ -1,21 +1,23 @@
-import { Outlet } from "react-router";
-import Header from "./Header";
-import Footer from "./Footer";
-import { useNavigation } from "react-router";
-import Loader from "./Loader";
-import styles from "./AppLayout.module.css";
+import { Outlet } from 'react-router';
+import Header from './Header';
+import Footer from './Footer';
+import { useNavigation } from 'react-router';
+import Loader from './Loader';
+import styles from './AppLayout.module.css';
 
 function AppLayout() {
   const navigation = useNavigation();
-  const isLoading = navigation.state === "loading";
+  const isLoading = navigation.state === 'loading';
 
   return (
-    <div className={styles.appLayout}>
+    <main className={styles.appLayout}>
       {isLoading && <Loader />}
       <Header />
-      <Outlet />
+      <div className={styles.appLayoutMainContent}>
+        <Outlet />
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }
 

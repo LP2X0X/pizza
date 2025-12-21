@@ -1,17 +1,16 @@
 import { Link } from 'react-router';
 import UserName from '../features/user/UserName';
-import { useSelector } from 'react-redux';
 import SearchOrder from '../features/order/SearchOrder';
+import styles from './Header.module.css';
 
 function Header() {
-  const userName = useSelector((state) => state.user.userName);
   return (
-    <header>
-      <Link to="/">The Pizza Slice Co.</Link>
-
+    <header className={styles.header}>
+      <Link to="/" className={styles.headerLink}>
+        The Pizza Slice Co.
+      </Link>
       <SearchOrder />
-
-      {userName && <UserName userName={userName} />}
+      <UserName />
     </header>
   );
 }

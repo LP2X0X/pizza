@@ -33,6 +33,7 @@ function App() {
               path: '/order/:id',
               element: <Order />,
               loader: orderLoader,
+              errorElement: <Error />,
               action: makeOrderPriorityAction,
             },
           ],

@@ -4,6 +4,8 @@ import { Form, redirect, useActionData, useNavigation } from 'react-router';
 import { fetchAddress } from '../user/userSlice';
 import store from '../../Store';
 import EmptyCart from '../cart/EmptyCart';
+import styles from './CreateOrder.module.css';
+import Button from '../../ui/Button';
 
 const API_URL = 'https://react-fast-pizza-api.jonas.io/api';
 
@@ -32,54 +34,75 @@ function CreateOrder() {
     dispatch(fetchAddress());
   }
 
-  if (!cart.length) return <EmptyCart />;
+  if (!cart.length) return <EmptyCart type="fromCreateOrder" />;
 
   return (
-    <Form method="POST">
-      <h2>Ready to order? Let's go!</h2>
-      <section>
-        <label>First name</label>
-        <input
-          type="text"
-          name="customer"
-          defaultValue={firstName}
-          required
-        ></input>
-      </section>
+    <Form method="POST" className={styles.createOrderForm}>
+      <h2 className={styles.createOrderFormHeader}>
+        Ready to order? Let's go!
+      </h2>
+      <div className={styles.createOrderInputSectionContainer}>
+        <section className={styles.createOrderSection}>
+          <label>First name</label>
+          <input
+            type="text"
+            name="customer"
+            defaultValue={firstName}
+            className={styles.formInput}
+            required
+            autocomplete="off"
+          ></input>
+        </section>
 
-      <section>
-        <label>Phone number</label>
-        <input type="number" name="phone" required></input>
-        {errors?.phone && <p>{errors?.phone}</p>}
-      </section>
-
-      <section>
-        <label>Address</label>
-        <input
-          type="text"
-          name="address"
-          defaultValue={address}
-          required
-        ></input>
-        {addressStatus !== 'fulfilled' && (
-          <button onClick={handleGetPosition}>
-            {addressStatus === 'pending'
-              ? 'Getting position...'
-              : 'Get position'}
-          </button>
+        <section className={styles.createOrderSection}>
+          <label>Phone number</label>
+          <input
+            type="tel"
+            name="phone"
+            className={styles.formInput}
+            autocomplete="off"
+            required
+          ></input>
+        </section>
+        {errors?.phone && (
+          <p className={`${styles.fadeIn} ${styles.warning}`}>
+            {errors?.phone}
+          </p>
         )}
+
+        <section
+          className={`${styles.createOrderSection} ${styles.addressSection}`}
+        >
+          <label>Address</label>
+          <input
+            type="text"
+            name="address"
+            defaultValue={address}
+            className={styles.formInput}
+            autocomplete="off"
+            required
+          ></input>
+          {addressStatus !== 'fulfilled' && addressStatus !== 'error' && (
+            <Button type="address" onClick={handleGetPosition}>
+              {addressStatus === 'loading'
+                ? 'Getting position...'
+                : 'Get position'}
+            </Button>
+          )}
+        </section>
+
         {addressStatus === 'error' && (
-          <p>
+          <p className={`${styles.fadeIn} ${styles.warning}`}>
             There was a problem getting your address. Make sure to fill this
             field.
           </p>
         )}
-      </section>
 
-      <section>
-        <input type="checkbox" name="priority"></input>
-        <label>Want to give your order priority?</label>
-      </section>
+        <section className={styles.createOrderCheckbox}>
+          <input type="checkbox" name="priority"></input>
+          <label>Want to give your order priority?</label>
+        </section>
+      </div>
 
       <div>
         <input type="hidden" name="cart" value={JSON.stringify(cart)}></input>
@@ -93,9 +116,11 @@ function CreateOrder() {
           }
         ></input>
       </div>
-      <button>
-        {isSubmitting ? `Placing order...` : `Order now from ${totalCartPrice}`}
-      </button>
+      <Button>
+        {isSubmitting
+          ? `Placing order...`
+          : `Order now from $${totalCartPrice.toFixed(2)}`}
+      </Button>
     </Form>
   );
 }

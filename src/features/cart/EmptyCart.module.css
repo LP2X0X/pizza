@@ -1,0 +1,15 @@
+.emptyCart {
+  max-width: calc(48 * 16px);
+  padding: 1rem 0.5rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.emptyCartMessage {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--color-gray-700);
+  align-self: center;
+}

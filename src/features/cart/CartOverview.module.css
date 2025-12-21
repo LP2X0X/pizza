@@ -1,0 +1,14 @@
+.cartOverview {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-gray-800);
+  color: var(--color-gray-100);
+  padding: 1rem 1.5rem;
+  text-transform: uppercase;
+}
+
+.cartOverviewInfo {
+  display: flex;
+  gap: 1rem;
+  font-weight: 700;
+}

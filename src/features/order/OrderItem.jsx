@@ -1,16 +1,20 @@
+import styles from './OrderItem.module.css';
+
 function OrderItem({ item, isLoadingIngredients, ingredients }) {
   const { quantity, name, totalPrice } = item;
 
   return (
-    <li>
-      <div>
+    <li className={styles.orderItem}>
+      <div className={styles.orderItemNameAndPrice}>
         <p>
-          {quantity} x {name}
+          <span className={styles.orderItemQuantity}>{quantity} x</span> {name}
         </p>
-        <p>${totalPrice}</p>
+        <p className={styles.orderItemPrice}>${totalPrice.toFixed(2)}</p>
       </div>
 
-      <p>{isLoadingIngredients ? 'Loading...' : ingredients.join(', ')}</p>
+      <p className={styles.orderItemIngredients}>
+        {isLoadingIngredients ? 'Loading...' : ingredients.join(', ')}
+      </p>
     </li>
   );
 }

@@ -1,0 +1,27 @@
+.home {
+  color: var(--color-gray-700);
+  font-size: var(--font-size-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: calc(48 * 16px);
+  margin: 4rem auto;
+  gap: 2.5rem;
+  padding: 0 1rem;
+}
+
+.mainHeader {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.mainHeaderSubtitle {
+  color: var(--color-primary-500);
+}
+
+@media (width >= 40em) {
+  .home {
+    font-size: var(--font-size-sm);
+  }
+}

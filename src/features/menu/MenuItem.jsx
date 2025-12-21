@@ -1,11 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addItem, getQuantityById } from "../cart/cartSlice";
-import IncreaseItemQuantity from "../order/UpdateItemQuantity";
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, deleteItem, getQuantityById } from '../cart/cartSlice';
+import IncreaseItemQuantity from '../order/UpdateItemQuantity';
+import styles from './MenuItem.module.css';
+import Button from '../../ui/Button';
 
 function MenuItem({ pizza }) {
   const dispatch = useDispatch();
   const { id, name, imageUrl, soldOut, unitPrice, ingredients } = pizza;
   const itemQuantity = useSelector(getQuantityById(id));
+  const formatedPrice = Number(unitPrice).toFixed(2);
 
   function handleAddToCart() {
     const newItem = {
@@ -18,23 +21,43 @@ function MenuItem({ pizza }) {
     dispatch(addItem(newItem));
   }
 
+  function handleDeleteItem(id) {
+    dispatch(deleteItem(id));
+  }
+
   return (
-    <article>
-      <h3>{name}</h3>
-      <img src={imageUrl} alt={`Image of a ${name} pizza`} />
-      <p>{ingredients.join(", ")}</p>
-      {soldOut ? (
-        <p>Sold out</p>
-      ) : (
-        <>
-          <p>{unitPrice}</p>
-          <button onClick={handleAddToCart}>Add To Cart</button>
-        </>
-      )}
-      {itemQuantity > 0 && (
-        <IncreaseItemQuantity id={id} quantity={itemQuantity} />
-      )}
-    </article>
+    <li className={styles.menuItem}>
+      <img
+        className={styles.menuItemImage}
+        src={imageUrl}
+        alt={`Image of a ${name} pizza`}
+      />
+      <div className={styles.menuItemInfo}>
+        <h3 className={styles.menuItemName}>{name}</h3>
+        <p className={styles.menuItemIngredients}>{ingredients.join(', ')}</p>
+      </div>
+      <div className={styles.menuItemPriceAndActions}>
+        {soldOut ? (
+          <p className={styles.menuItemSoldOut}>Sold out</p>
+        ) : (
+          <>
+            <p>${formatedPrice}</p>
+            {itemQuantity > 0 ? (
+              <div className={styles.menuItemActions}>
+                <IncreaseItemQuantity id={id} quantity={itemQuantity} />
+                <Button type="small" onClick={() => handleDeleteItem(id)}>
+                  delete
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={handleAddToCart} type="small">
+                Add To Cart
+              </Button>
+            )}
+          </>
+        )}
+      </div>
+    </li>
   );
 }
 

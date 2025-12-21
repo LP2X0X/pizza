@@ -1,0 +1,22 @@
+.cart {
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: calc(48 * 16px);
+  padding: 1rem 0.5rem;
+  color: var(--color-gray-700);
+}
+
+.cart li {
+  list-style: none;
+}
+
+.header {
+  font-size: var(--font-size-lg);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+}
